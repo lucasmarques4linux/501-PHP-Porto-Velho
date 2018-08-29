@@ -1,0 +1,23 @@
+{
+    "name": "lucas/composer",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Lucas Marques",
+            "email": "lucasmarques73@hotmail.com"
+        }
+    ],
+    "require": {
+    },
+    "require-dev":{},
+    "scripts":{
+    	"test": [
+    		"echo 'testando'"
+    	]
+    },
+    "autoload":{
+    	"psr-4":{
+    		"App\\":"app/"
+    	}
+    }
+}
