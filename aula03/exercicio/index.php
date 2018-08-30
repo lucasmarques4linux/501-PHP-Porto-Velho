@@ -1,6 +1,30 @@
-<?php 
+<?php
+	
+	$dbSelected = $_GET['base'] ?? 'postgres';
+	require_once 'usuarios.php';
 	
 	$dbs = ['postgres' => 'PostgreSQL','mysql'=> 'MySQL'];
+
+	if(isset($_GET['id'])){
+		$id = $_GET['id'];
+		$usuario = Usuarios::buscarPorId($id);
+	} else {
+		$usuario = new StdClass();
+		$usuario->id = null;
+		$usuario->nome = null;
+		$usuario->email = null;
+	}
+
+	if (!empty($_POST)) {
+		if(isset($_POST['del'])){
+			$id = $_POST['id'];
+			Usuarios::remover($id);
+		} else {
+			Usuarios::salvar($_POST);
+		}
+	}
+
+	$usuarios = Usuarios::buscarTodos();
 
  ?>
 <html>
@@ -16,7 +40,7 @@
 	<select name="base" class="form-control form-control-sm">
 	<?php foreach ($dbs as $key => $value): ?>
 
-		<?php $selected = ($key == $db) ? 'selected' : null; ?>
+		<?php $selected = ($key == $dbSelected) ? 'selected' : null; ?>
 
 		<option value="<?= $key ?>" <?=$selected ?>><?= $value ?></option>
 	<?php endforeach; ?>
@@ -30,14 +54,14 @@
 <div class="row">
 <div class="col">
 <form method="POST" action="">
-	<input type="hidden" name="id" value="">
+	<input type="hidden" name="id" value="<?= $usuario->id ?>">
 	<div class="form-group">
 	<label>Name:</label>
-	<input type="text" name="name" class="form-control form-control-sm" value="">	
+	<input type="text" name="nome" class="form-control form-control-sm" value="<?= $usuario->nome ?>">	
 	</div>
 	<div class="form-group">
 	<label>Email:</label>
-	<input type="email" name="email" class="form-control form-control-sm" value="">
+	<input type="email" name="email" class="form-control form-control-sm" value="<?= $usuario->email ?>">
 	</div>
 	<div class="form-group" style="margin-top: 5px;">
 		<input type="submit" class="btn btn-sm btn-success" value="Save">
@@ -52,19 +76,23 @@
 		<th>Email</th>
 		<th>Actions</th>
 	</tr>
-	<tr>
-		<td>1</td>
-		<td>Fernando</td>
-		<td>fernando@gmail.com</td>
-		<td>
-		<a class="btn btn-sm btn-info" href=""> Edit</a>
-		<form method="POST" action="#">
-			<input type="hidden" name="id" value="">
-			<input type="hidden" name="del" value="del">
-			<input type="submit" class="btn btn-sm btn-danger" value="Delete">
-		</form>
-		</td>
-	</tr>
+	<?php if (!empty($usuarios)) : ?>
+	<?php foreach ($usuarios as $usuario) : ?>
+		<tr>
+			<td><?= $usuario->id ?></td>
+			<td><?= $usuario->nome ?></td>
+			<td><?= $usuario->email ?></td>
+			<td>
+			<a class="btn btn-sm btn-info" href="?base=<?= $dbSelected ?>&id=<?= $usuario->id ?>"> Edit</a>
+			<form method="POST" action="#">
+				<input type="hidden" name="id" value="<?= $usuario->id ?>">
+				<input type="hidden" name="del" value="del">
+				<input type="submit" class="btn btn-sm btn-danger" value="Delete">
+			</form>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+	<?php endif; ?>
 </table>
 </div>
 </div>
