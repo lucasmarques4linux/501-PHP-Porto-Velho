@@ -1,22 +1,22 @@
 <?php
-	
-	$dbSelected = $_GET['base'] ?? 'postgres';
+		
 	require_once 'usuarios.php';
 	
+	$dbSelected = $_GET['base'] ?? 'postgres';
 	$dbs = ['postgres' => 'PostgreSQL','mysql'=> 'MySQL'];
 
 	if (!empty($_POST)) {
 		if(isset($_POST['del'])){
 			$id = $_POST['id'];
-			Usuarios::remover($id);
+			Usuarios::remover($dbSelected,$id);
 		} else {
-			Usuarios::salvar($_POST);
+			Usuarios::salvar($dbSelected,$_POST);
 		}
 	}
 
 	if(isset($_GET['id'])){
 		$id = $_GET['id'];
-		$usuario = Usuarios::buscarPorId($id);
+		$usuario = Usuarios::buscarPorId($dbSelected,$id);
 	} else {
 		$usuario = new StdClass();
 		$usuario->id = null;
@@ -24,7 +24,7 @@
 		$usuario->email = null;
 	}
 
-	$usuarios = Usuarios::buscarTodos();
+	$usuarios = Usuarios::buscarTodos($dbSelected);
 
  ?>
 <html>
