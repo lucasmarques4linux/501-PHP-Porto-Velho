@@ -9,7 +9,7 @@
 	<input type="email" name="email" class="form-control form-control-sm" value="<?= $user->getEmail() ?>">
 	</div>
 	<div class="form-group" style="margin-top: 5px;">
-		<a href="?r=user" class="btn btn-sm btn-warning">Go Back</a>
+		<a href="?r=users" class="btn btn-sm btn-warning">Go Back</a>
 		<input type="submit" class="btn btn-sm btn-success" value="Save">
 	</div>
 </form>
