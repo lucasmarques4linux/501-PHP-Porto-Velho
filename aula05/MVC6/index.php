@@ -3,6 +3,6 @@
 require_once 'config/config.php';
 require_once 'vendor/autoload.php';
 
-use App\Controller\Controller;
+use App\Lib\FrontController\FrontController;
 
-(new Controller())->run();
+(new FrontController())->run();
