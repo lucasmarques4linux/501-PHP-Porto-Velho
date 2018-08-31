@@ -7,12 +7,6 @@
 <body>
 <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand" href="?r=home">MVC7 - com rotas</a>
-   <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="?r=users">Users</a>
-      </li>
-    </ul>
 </nav>
 
 <div class="container">
-	
