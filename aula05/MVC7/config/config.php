@@ -1,7 +1,7 @@
 <?php 
 
 const DBUSER = 'lucas';
-const DBPASS = '123';
+const DBPASS = '@da4linux';
 const DBNAME = 'aula';
 const DBHOST = 'localhost';
-const DBDRIVER = 'pgsql';
+const DBDRIVER = 'mysql';

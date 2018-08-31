@@ -20,7 +20,7 @@ class UsersController extends Controller
 	public function edit(int $id)
 	{
 
-	}
+	}	
 
 	public function update(int $id)
 	{
@@ -29,6 +29,6 @@ class UsersController extends Controller
 
 	public function delete(int $id)
 	{
-		
+
 	}
 }
